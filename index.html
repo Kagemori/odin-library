@@ -5,17 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odin Project: Library</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
     <div id="container">
         <div id="nav">
+            <button id="new-book">New Book</button>
+            <div id="book-form">
+                <h2>Add New Book</h2>
+                <form action="">
+                    <label for="book-title">Book Title:</label>
+                    <input type="text" name="book-title" id="book-title">
 
+                    <label for="book-author">Author's Name:</label>
+                    <input type="text" name="book-author" id="book-author">
+
+                    <label for="book-pages">Total Pages:</label>
+                    <input type="number" name="book-pages" id="book-pages">
+
+                    <label for="book-read">Finished Reading?</label>
+                    <input type="checkbox" name="book-read" id="book-read">
+                </form>
+            </div>
         </div>
 
         <div id="booklist">
-            
+
         </div>
     </div>
 </body>

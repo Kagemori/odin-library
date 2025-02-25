@@ -12,3 +12,11 @@ function addBookToLibrary(title, author, pages, haveRead) {
 
     myLibrary.push(myLibrary);
 }
+
+// For the form
+const openForm = document.getElementById("new-book");
+const form = document.getElementById("book-form");
+
+openForm.addEventListener('click', () => {
+    form.style.display = 'block';
+})
