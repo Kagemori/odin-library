@@ -29,8 +29,13 @@ const form = document.getElementById("form");
 const formButton = document.getElementById("new-book");
 
 openForm.addEventListener('click', () => {
-    formSection.style.display = 'flex';
-    formButton.style.display = 'none';
+    if(formSection.style.display == "flex"){
+        formSection.style.display = 'none';
+        openForm.textContent = "New Book";
+    }else{
+        formSection.style.display = 'flex';
+        openForm.textContent = "Cancel";
+    }
 })
 
 function handleFormSubmit(event) {
@@ -90,7 +95,7 @@ function handleFormSubmit(event) {
     booklist.appendChild(bookCard);
 
     formSection.style.display = 'none';
-    formButton.style.display = 'inline';
+    openForm.textContent = "New Book";
 }
 
 form.addEventListener("submit", handleFormSubmit);
