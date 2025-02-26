@@ -1,17 +1,19 @@
 const myLibrary = [];
+let librarySize = 0;
 
-function Book(title, author, pages, haveRead) {
+function Book(title, author, pages, haveRead, libID) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.haveRead = haveRead;
+    this.libID = libID;
 }
 
 function addBookToLibrary(title, author, pages, haveRead) {
-    let book = new Book(title, author, pages, haveRead);
+    let book = new Book(title, author, pages, haveRead, librarySize);
 
     myLibrary.push(book);
-
+    librarySize += 1;
 
     const iterator = myLibrary.values();
 
