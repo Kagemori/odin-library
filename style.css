@@ -146,3 +146,18 @@ button {
 .card-read {
     font-size: 15px;
 }
+
+.book-options {
+    display: flex;
+    align-content: end;
+    justify-content: end;
+    padding: 10px 15px;
+}
+
+.book-options button{
+    background-color: green;
+    color: orange;
+    border-radius: 5px;
+    margin-left: 20px;
+    border: 2px solid black;
+}
