@@ -105,7 +105,7 @@ button {
 }
 
 .book-card {
-    min-width: 17vw;
+    width: 17vw;
     min-height: 20vh;
     background-color: antiquewhite;
     border-radius: 20px;
@@ -120,6 +120,8 @@ button {
 
 .card-title, .card-author, .card-pages, .card-read {
     padding-left: 20px;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .card-author, .card-pages {

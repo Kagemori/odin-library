@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 let librarySize = 0;
 
 function Book(title, author, pages, haveRead, libID) {
@@ -14,12 +14,6 @@ function addBookToLibrary(title, author, pages, haveRead) {
 
     myLibrary.push(book);
     librarySize += 1;
-
-    const iterator = myLibrary.values();
-
-    for (let value of iterator) {
-        console.log(value);
-    }
 }
 
 // For the form
@@ -56,6 +50,9 @@ function handleFormSubmit(event) {
     let bookCardRead = document.createElement("div");
     let bookOptions = document.createElement("div");
 
+    let bookRemove = document.createElement("button");
+    let bookToggleRead = document.createElement("button");
+
     bookCard.classList.add("book-card");
     bookInfo.classList.add("book-info");
     bookOptions.classList.add("book-options");
@@ -72,6 +69,11 @@ function handleFormSubmit(event) {
     let latestBookID = latestBook.libID;
 
     bookCard.classList.add(`libID-${latestBookID}`);
+    bookRemove.classList.add(`libID-${latestBookID}`);
+    bookToggleRead.classList.add(`libID-${latestBookID}`);
+
+    bookRemove.setAttribute('id','book-remove');
+    bookToggleRead.setAttribute('id','toggle-read');
 
     bookCardTitle.textContent = `${latestBookTitle}`;
     bookCardAuthor.textContent = `Author: ${latestBookAuthor}`;
@@ -82,6 +84,9 @@ function handleFormSubmit(event) {
         bookCardRead.textContent = `You have not read this book.`;
     }
 
+    bookRemove.textContent = `Remove Book`;
+    bookToggleRead.textContent = `Toggle Read`;
+
     bookCard.appendChild(bookInfo);
     bookCard.appendChild(bookOptions);
 
@@ -90,12 +95,27 @@ function handleFormSubmit(event) {
     bookInfo.appendChild(bookCardPages);
     bookInfo.appendChild(bookCardRead);
 
+    bookOptions.appendChild(bookToggleRead);
+    bookOptions.appendChild(bookRemove);
+
     let booklist = document.getElementById("booklist");
 
     booklist.appendChild(bookCard);
 
     formSection.style.display = 'none';
     openForm.textContent = "New Book";
+
+    bookToggleRead.addEventListener("click", function(event) {
+        let idCheck = event.target.classList.value;
+        let idValue = idCheck.slice(6);
+
+        let searchBooks = document.querySelector(`.book-card.${idCheck}`);
+
+        myLibrary = myLibrary.filter(item => item.libID !== Number(idValue));
+        searchBooks.remove();
+    })
 }
 
 form.addEventListener("submit", handleFormSubmit);
+
+let toggleReads = document.querySelectorAll("#toggle-read");
