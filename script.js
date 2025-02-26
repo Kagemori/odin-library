@@ -40,6 +40,53 @@ function handleFormSubmit(event) {
     const bookRead = document.getElementById("book-read").checked;
 
     addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
+
+    let bookCard = document.createElement("div");
+    let bookInfo = document.createElement("div");
+    let bookCardTitle = document.createElement("div");
+    let bookCardAuthor = document.createElement("div");
+    let bookCardPages = document.createElement("div");
+    let bookCardRead = document.createElement("div");
+    let bookOptions = document.createElement("div");
+
+    bookCard.classList.add("book-card");
+    bookInfo.classList.add("book-info");
+    bookOptions.classList.add("book-options");
+    bookCardTitle.classList.add("card-title");
+    bookCardAuthor.classList.add("card-author");
+    bookCardPages.classList.add("card-pages");
+    bookCardRead.classList.add("card-read");
+
+    let latestBook = myLibrary[myLibrary.length-1];
+    let latestBookTitle = latestBook.title;
+    let latestBookAuthor = latestBook.author;
+    let latestBookPages = latestBook.pages;
+    let latestBookRead = latestBook.haveRead;
+    let latestBookID = latestBook.libID;
+
+    bookCard.classList.add(`libID-${latestBookID}`);
+
+    bookCardTitle.textContent = `${latestBookTitle}`;
+    bookCardAuthor.textContent = `Author: ${latestBookAuthor}`;
+    bookCardPages.textContent = `${latestBookPages} Pages`;
+    if(latestBookRead == true){
+        bookCardRead.textContent = `You have read this book.`;
+    }else{
+        bookCardRead.textContent = `You have not read this book.`;
+    }
+
+    bookCard.appendChild(bookInfo);
+    bookCard.appendChild(bookOptions);
+
+    bookInfo.appendChild(bookCardTitle);
+    bookInfo.appendChild(bookCardAuthor);
+    bookInfo.appendChild(bookCardPages);
+    bookInfo.appendChild(bookCardRead);
+
+    let booklist = document.getElementById("booklist");
+
+    booklist.appendChild(bookCard);
+
 }
 
 form.addEventListener("submit", handleFormSubmit);
