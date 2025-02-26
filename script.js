@@ -105,7 +105,7 @@ function handleFormSubmit(event) {
     formSection.style.display = 'none';
     openForm.textContent = "New Book";
 
-    bookToggleRead.addEventListener("click", function(event) {
+    bookRemove.addEventListener("click", function(event) {
         let idCheck = event.target.classList.value;
         let idValue = idCheck.slice(6);
 
@@ -114,8 +114,24 @@ function handleFormSubmit(event) {
         myLibrary = myLibrary.filter(item => item.libID !== Number(idValue));
         searchBooks.remove();
     })
+
+    bookToggleRead.addEventListener("click", function(event) {
+        let idCheck = event.target.classList.value;
+        let idValue = idCheck.slice(6);
+
+        let searchBooks = document.querySelector(`.book-card.${idCheck}`);
+        let bookToRead = searchBooks.querySelector(`.book-info .card-read`);
+
+        if(bookToRead.textContent == "You have not read this book."){
+            bookToRead.textContent = "You have read this book.";
+            let bookToChange = myLibrary.find(item => item.libID === Number(idValue));
+            bookToChange.haveRead = true;
+        }else{
+            bookToRead.textContent = "You have not read this book.";
+            let bookToChange = myLibrary.find(item => item.libID === Number(idValue));
+            bookToChange.haveRead = false;
+        }
+    })
 }
 
 form.addEventListener("submit", handleFormSubmit);
-
-let toggleReads = document.querySelectorAll("#toggle-read");
