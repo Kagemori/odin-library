@@ -26,9 +26,11 @@ function addBookToLibrary(title, author, pages, haveRead) {
 const openForm = document.getElementById("new-book");
 const formSection = document.getElementById("book-form");
 const form = document.getElementById("form");
+const formButton = document.getElementById("new-book");
 
 openForm.addEventListener('click', () => {
-    formSection.style.display = 'block';
+    formSection.style.display = 'flex';
+    formButton.style.display = 'none';
 })
 
 function handleFormSubmit(event) {
@@ -87,6 +89,8 @@ function handleFormSubmit(event) {
 
     booklist.appendChild(bookCard);
 
+    formSection.style.display = 'none';
+    formButton.style.display = 'inline';
 }
 
 form.addEventListener("submit", handleFormSubmit);
