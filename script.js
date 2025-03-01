@@ -1,19 +1,22 @@
 let myLibrary = [];
 let librarySize = 0;
 
-function Book(title, author, pages, haveRead, libID) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.haveRead = haveRead;
-    this.libID = libID;
-}
+class Book {
+    constructor(title, author, pages, haveRead) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.haveRead = haveRead;
+    }
 
-function addBookToLibrary(title, author, pages, haveRead) {
-    let book = new Book(title, author, pages, haveRead, librarySize);
+    addBookToLibrary() {
+        myLibrary.push([this, librarySize]);
+        librarySize += 1;
+    }
 
-    myLibrary.push(book);
-    librarySize += 1;
+    toggleRead(toggle) {
+        this.haveRead = toggle;
+    }
 }
 
 // For the form
@@ -40,7 +43,8 @@ function handleFormSubmit(event) {
     const bookPages = document.getElementById("book-pages").value;
     const bookRead = document.getElementById("book-read").checked;
 
-    addBookToLibrary(bookTitle, bookAuthor, bookPages, bookRead);
+    let formBook = new Book(bookTitle, bookAuthor, bookPages, bookRead);
+    formBook.addBookToLibrary();
 
     let bookCard = document.createElement("div");
     let bookInfo = document.createElement("div");
@@ -62,11 +66,11 @@ function handleFormSubmit(event) {
     bookCardRead.classList.add("card-read");
 
     let latestBook = myLibrary[myLibrary.length-1];
-    let latestBookTitle = latestBook.title;
-    let latestBookAuthor = latestBook.author;
-    let latestBookPages = latestBook.pages;
-    let latestBookRead = latestBook.haveRead;
-    let latestBookID = latestBook.libID;
+    let latestBookTitle = latestBook[0].title;
+    let latestBookAuthor = latestBook[0].author;
+    let latestBookPages = latestBook[0].pages;
+    let latestBookRead = latestBook[0].haveRead;
+    let latestBookID = latestBook[1];
 
     bookCard.classList.add(`libID-${latestBookID}`);
     bookRemove.classList.add(`libID-${latestBookID}`);
@@ -111,7 +115,7 @@ function handleFormSubmit(event) {
 
         let searchBooks = document.querySelector(`.book-card.${idCheck}`);
 
-        myLibrary = myLibrary.filter(item => item.libID !== Number(idValue));
+        myLibrary = myLibrary.filter(item => item[1] !== Number(idValue));
         searchBooks.remove();
     })
 
@@ -124,12 +128,14 @@ function handleFormSubmit(event) {
 
         if(bookToRead.textContent == "You have not read this book."){
             bookToRead.textContent = "You have read this book.";
-            let bookToChange = myLibrary.find(item => item.libID === Number(idValue));
-            bookToChange.haveRead = true;
+            let bookToChange = myLibrary.find(item => item[1]=== Number(idValue));
+            console.log(bookToChange);
+            bookToChange[0].toggleRead(true);
         }else{
             bookToRead.textContent = "You have not read this book.";
-            let bookToChange = myLibrary.find(item => item.libID === Number(idValue));
-            bookToChange.haveRead = false;
+            let bookToChange = myLibrary.find(item => item[1] === Number(idValue));
+            console.log(bookToChange);
+            bookToChange[0].toggleRead(false);
         }
     })
 }
