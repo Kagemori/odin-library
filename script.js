@@ -25,6 +25,42 @@ const formSection = document.getElementById("book-form");
 const form = document.getElementById("form");
 const formButton = document.getElementById("new-book");
 
+// Form validation
+const pages = document.getElementById("book-pages");
+const error = document.getElementById("error");
+
+const isValidPages = () => {
+    const validity = Number(pages.value) !== NaN && Number(pages.value) >= 0;
+    return validity;
+}
+
+const setPagesClass = (isValid) => {
+    pages.className = isValid ? "valid" : "invalid";
+}
+
+const updateError = (isValidInput) => {
+    if (isValidInput) {
+        error.textContent = "";
+        error.removeAttribute("class");
+    }else{
+        error.textContent = `Invalid pages! Please enter the total pages of the book!`;
+        error.setAttribute("class","active");
+    }
+}
+
+const initializeValidation = () => {
+    const pageInput = isValidPages();
+    setPagesClass(pageInput);
+}
+
+const handleInput = () => {
+    const pageInput = isValidPages();
+    setPagesClass(pageInput);
+    updateError(pageInput);
+}
+
+
+
 openForm.addEventListener('click', () => {
     if(formSection.style.display == "flex"){
         formSection.style.display = 'none';
@@ -42,6 +78,14 @@ function handleFormSubmit(event) {
     const bookAuthor = document.getElementById("book-author").value;
     const bookPages = document.getElementById("book-pages").value;
     const bookRead = document.getElementById("book-read").checked;
+
+    const pageInput = isValidPages();
+    setPagesClass(pageInput);
+    updateError(pageInput);
+
+    if(pageInput == false){
+        return;
+    }
 
     let formBook = new Book(bookTitle, bookAuthor, bookPages, bookRead);
     formBook.addBookToLibrary();
@@ -140,4 +184,6 @@ function handleFormSubmit(event) {
     })
 }
 
+window.addEventListener("load",initializeValidation);
+pages.addEventListener("input",handleInput);
 form.addEventListener("submit", handleFormSubmit);

@@ -161,3 +161,7 @@ button {
     margin-left: 20px;
     border: 2px solid black;
 }
+
+span {
+    text-align: center;
+}
